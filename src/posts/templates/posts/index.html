@@ -1,0 +1,29 @@
+{% extends 'posts\base.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block body %}
+    <div class="col-sm-8 col-sm-offset-2">
+        <h1>{{title}}</h1>
+        {{request.user.username}}
+        {% if messages %}
+        <ul class="message">
+            {% for message in messages %}
+                <li {% if message.tag %} class="{{message.tag}}" {% endif %}>{{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <ul class="list-group">
+        {% for post in posts %}
+            <li class="list-group-item">
+                {% if post.image %}
+                    <img src="/media/{{post.image}}" class="ïmg-responsive"/>
+                {% endif %}
+                <h3>{{post.title}} - <small>{{post.updated|timesince}}</small></h3>
+                <p>{{post.content|truncatechars:14}}</p>
+                <a href="{% url 'posts:detail' id=post.id %}" class="btn btn-primary">Read More...</a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

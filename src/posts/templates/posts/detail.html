@@ -1,0 +1,11 @@
+{% extends 'posts\base.html' %}
+
+{% block body %}
+
+    <h1>{{post.title}}</h1>
+    <p>{{post.content|linebreaks|safe}}</p>
+    <span>{{post.timestamp|timesince}}</span>
+    <a href="{% url 'posts:update' id=post.id %}" class="btn btn-warning">Edit</a>
+    <a href="{% url 'posts:delete' id=post.id %}" class="btn btn-danger">Delete</a>
+
+{% endblock %}
